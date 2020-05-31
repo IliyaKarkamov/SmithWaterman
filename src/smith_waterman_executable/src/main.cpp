@@ -16,7 +16,7 @@ void fromConsole(std::string& a, std::string& b)
 void fromFiles(std::string& a, std::string& b)
 {
     const auto fromFile = [](const std::string& filename) -> std::string {
-        std::ifstream t(filename);
+        const std::ifstream t(filename);
 
         std::stringstream buffer;
         buffer << t.rdbuf();
@@ -33,7 +33,7 @@ void fromFiles(std::string& a, std::string& b)
 
     a = fromFile(filename.empty() ? "a.txt" : filename);
 
-    std::cout << "Please enter the second sequence input file name: [Default = b.txt]: ";
+    std::cout << "Please enter the second sequence input file name [Default = b.txt]: ";
     std::getline(std::cin, filename);
 
     b = fromFile(filename.empty() ? "b.txt" : filename);
@@ -44,7 +44,7 @@ int main()
     try
     {
         std::cout << "Smith-Waterman Algorithm.\n";
-        std::cout << "Choose sequences input method [1 = Console, 2 = Files] = ";
+        std::cout << "Choose sequences input method [1 = Console, 2 = Files]: ";
 
         int inputMethod;
         std::cin >> inputMethod;
