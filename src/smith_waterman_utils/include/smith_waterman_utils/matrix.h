@@ -1,7 +1,9 @@
 #ifndef SMITH_WATERMAN_UTILS_MATRIX_H
 #define SMITH_WATERMAN_UTILS_MATRIX_H
 
-#include <memory>
+#include <vector>
+#include <algorithm>
+#include <tuple>
 
 namespace sw
 {
@@ -17,20 +19,24 @@ public:
     [[nodiscard]] size_t rows() const { return m_rows; }
     [[nodiscard]] size_t columns() const { return m_columns; }
 
-    template<typename T>
-    friend void fill(Matrix<T>& m, T value)
+    friend void fill(Matrix<T>& m, T value) { std::fill(m.m_elements.begin(), m.m_elements.end(), value); }
+
+    friend std::tuple<T, size_t, size_t> maxElement(const Matrix<T>& m)
     {
-        std::fill(m.m_elements.get(), m.m_elements.get() + m.m_columns * m.m_rows, value);
+        const auto it = std::max_element(m.m_elements.begin(), m.m_elements.end());
+        const auto index = std::distance(m.m_elements.begin(), it);
+
+        return {*it, index % m.rows(), index / m.rows()};
     }
 
 private:
     size_t m_rows;
     size_t m_columns;
-    std::unique_ptr<T[]> m_elements;
+    std::vector<T> m_elements;
 };
 
 template<typename T>
-Matrix<T>::Matrix(const size_t rows, const size_t columns) : m_rows(rows), m_columns(columns), m_elements(new T[rows * columns])
+Matrix<T>::Matrix(const size_t rows, const size_t columns) : m_rows(rows), m_columns(columns), m_elements(rows * columns)
 {}
 
 template<typename T>
