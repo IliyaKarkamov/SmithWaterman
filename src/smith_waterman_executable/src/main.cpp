@@ -73,6 +73,8 @@ int main()
         auto&& [sequenceA, sequenceB] = algorithm.compute();
 
         std::cout << "\nResult alignment:\n" << sequenceA << "\n" << sequenceB << "\n\n";
+
+        std::cin.get();
     }
     catch (const std::exception& e)
     {
