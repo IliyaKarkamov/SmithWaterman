@@ -1,0 +1,2 @@
+add_subdirectory(smith_waterman_utils)
+add_subdirectory(smith_waterman_executable)

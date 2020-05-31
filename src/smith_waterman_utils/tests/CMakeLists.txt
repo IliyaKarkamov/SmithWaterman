@@ -1,0 +1,4 @@
+add_executable(smith_waterman_utils_tests "matrix.cpp")
+target_link_libraries(smith_waterman_utils_tests smith_waterman_utils Catch2)
+
+add_test(smith_waterman_utils_unit_tests smith_waterman_utils_tests)
